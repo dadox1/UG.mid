@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UG.SS Exam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .login {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .question {
+            background: #fff;
+            padding: 20px;
+            margin: 10px auto;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+        .score {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 40px;
+            color: gray;
+            font-size: 14px;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="score">Score: <span id="score">0</span> / 20</div>
+
+<div id="login" class="login">
+    <h2>Enter Your Code</h2>
+    <input type="text" id="codeInput" placeholder="Enter your code">
+    <br><br>
+    <button onclick="checkCode()">Submit</button>
+    <p id="error" class="red"></p>
+</div>
+
+<div id="quiz" class="hidden">
+
+    <!-- Questions -->
+    <div class="question">
+        <h3>1- Which of the following is not considered as a generation of computers?</h3>
+        <button onclick="answer(this, 'correct')">Virtual Real Mode computer</button>
+        <button onclick="answer(this, 'wrong')">Vacuum tube computer</button>
+        <button onclick="answer(this, 'wrong')">Transistor Computer</button>
+        <button onclick="answer(this, 'wrong')">Integrated circuit computer</button>
+    </div>
+
+    <!-- Add more questions similarly -->
+
+</div>
+
+<div class="footer">
+    Created by Mohamad Haddad
+</div>
+
+<script>
+const allowedCodes = [
+    "2201342", "2204379", "2302709", "2303458", "2401199", "201775", "2302627", "2203617",
+    "2204256", "2400986", "2202383", "2102846", "2401410", "2102307", "2303265", "2401615",
+    "2203792", "2102337", "2402075", "2301794", "2302267", "1900572", "2303367", "202183",
+    "201764", "2201546", "2401871", "2301408", "2400126", "2400983", "2301563", "2401616",
+    "2400668", "2102238", "Peyman", "Dadox"
+];
+
+let score = 0;
+
+function checkCode() {
+    const input = document.getElementById('codeInput').value.trim();
+    if (allowedCodes.includes(input)) {
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('quiz').classList.remove('hidden');
+    } else {
+        document.getElementById('error').innerText = 'لست ضمن المجموعه';
+    }
+}
+
+function answer(button, correctness) {
+    if (correctness === 'correct') {
+        score++;
+    }
+    button.disabled = true;
+    document.getElementById('score').innerText = score;
+    checkResult();
+}
+
+function checkResult() {
+    if (score >= 20) {
+        alert("امتحان انتهى! انت ناجح!");
+    } else if (score > 10) {
+        document.body.style.backgroundColor = '#d4edda'; // أخضر فاتح للنجاح
+    } else {
+        document.body.style.backgroundColor = '#f8d7da'; // أحمر فاتح للرسوب
+    }
+}
+</script>
+
+</body>
+</html>
